@@ -86,6 +86,20 @@ describe('bookRepository', () => {
         expect(books).toEqual([newBook2]);
         
     });
+    it('should return null if no book is found to delete', () => {
+        const book = {
+            title : 'test title',
+            author : 'test author',
+            year: 2021,
+            genre: 'test genre',
+        }
+
+        const newBook = bookRepository.create(book);
+
+        const result = bookRepository.deleteBook('wrong id');
+
+        expect(result).toBe(null);
+    });
     it('should find a book by title', () => {
         const book = {
             title : 'test title',
