@@ -13,6 +13,12 @@ function createBookHandler(req, res) {
   res.status(201).json(newBook);
 }
 
+function listBookHandler(req, res) {
+  const books = bookRepository();
+  res.json(books)
+}
+
 module.exports = {
-  createBookHandler
+  createBookHandler,
+  listBookHandler
 };
