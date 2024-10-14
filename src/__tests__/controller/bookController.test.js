@@ -66,3 +66,21 @@ describe('bookController', () => {
     });
 
 });
+
+it('should return 500 status when an error occurs', () => {
+  const mockBook = {
+    title: 'test title',
+    author: 'test author',
+    year: 2021,
+    genre: 'test genre'
+  }
+
+  jest
+    .spyOn(bookRepository, "create")
+
+    .mockRejectedValue("new Error")
+
+  const req = {}
+  const res = {}
+  
+  });
