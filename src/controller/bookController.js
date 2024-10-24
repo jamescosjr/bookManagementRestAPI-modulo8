@@ -23,7 +23,7 @@ function createBookHandler(req, res) {
 
 function listBookHandler(req, res) {
   try {
-    const books = bookRepository();
+    const books = bookRepository.findAll();
     res.json(books);
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
@@ -31,40 +31,50 @@ function listBookHandler(req, res) {
 }
 
 function findBooksByTitle(req, res) {
+  const title = req.params.title;
 
   try {
-    const { title } = req.query;
-    const result = findByTitle({ title });
-    res.json(result);
+      const book = findByTitle(title);
 
+      if (!book) {
+          return res.status(404).json({ message: "Book not found" });
+      }
+
+      res.status(200).json(book);
   } catch (error) {
-    console.error("Error searching books by title:", error);
-    res.status(500).json({ message: "Internal server error" });
+      res.status(500).json({ message: error.message });
   }
 }
 
+
 function findBooksByAuthor(req, res) {
+  const author = req.params.author;
 
   try {
-    const { author } = req.query;
-    const result = findByAuthor({ author });
-    res.json(result);
+    const result = findByAuthor(author);
+  
+    if (!result) {
+      return res.status(404).json({ message: "Book not found" });
+    }
 
+    res.status(200).json(result);
   } catch (error) {
-    console.error("Error searching books by author:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }
 
 function findBooksByYear(req, res) {
+  const year = req.params.year;
 
   try {
-    const { year } = req.query;
     const result = findByYear({ year });
-    res.json(result);
 
+    if (!result) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    res.status(200).json(result);
   } catch (error) {
-    console.error("Error searching books by year:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }
