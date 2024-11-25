@@ -1,8 +1,8 @@
-const book = require("../schema/bookSchema");
+const Book = require("../schema/bookSchema");
 
 const bookRegister = async (title, author, year, genre) => {
   try {
-    const newBook = new book({
+    const newBook = new Book({
       title,
       author,
       year,
