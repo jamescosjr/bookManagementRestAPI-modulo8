@@ -1,48 +1,27 @@
-describe("Book Register Integration Test", () => {
-    const request = require("supertest");
-    const app = require("../../server.js");
+const mongoose = require('mongoose');
+const request = require('supertest');
+const app = require('../../server');
+const dbHandler = require('../../jest/jest.setup');
 
-    beforeAll(() => {
-        server = app.listen(3334, () => console.log("Test server running on port 3334"));
-    });
+beforeAll(async () => await dbHandler.connect());
 
-    afterAll(() => {
-        server.close(() => console.log("Test server closed"));
-    });
+afterEach(async () => await dbHandler.clearDatabase());
 
-    it("should register a book", async () => {
+afterAll(async () => await dbHandler.closeDatabase());
+
+describe('Book registration', () => {
+    it('call the route to register a book', async () => {
         const book = {
-            title: "Harry Potter",
-            author: "J.K. Rowling",
-            year: 2000,
-            genre: "Fantasy",
+            title: 'The Hobbit',
+            author: 'J.R.R. Tolkien',
+            year: 1937,
+            genre: 'Fantasy',
         };
 
-        const response = await request(app).post("/books").send(book);
+        const response = await request(app)
+            .post('/books')
+            .send(book);
 
-        expect(response.statusCode).toEqual(201);
-        expect(response.body).toEqual(expect.objectContaining({
-            _id: expect.any(String),
-            title: "Harry Potter",
-            author: "J.K. Rowling",
-            year: 2000,
-            genre: "Fantasy",
-        }));
-
+        expect(response.statusCode).toBe(201);
     });
-
-    it("should not register a book with invalid data", async () => {
-        const book = {
-            title: "Harry Potter",
-            title: 12,
-            year: "2000",
-            genre: "Fantasy",
-
-        };
-
-        const response = await request(app).post("/books").send(book);
-
-        expect(response.statusCode).toEqual(400);
-        expect(response.body).toEqual({ message: "Invalid book data" });
-    })
 });

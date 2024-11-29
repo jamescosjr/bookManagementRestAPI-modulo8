@@ -1,6 +1,6 @@
 const book = require("../schema/bookSchema");
 
-const bookRegister = async (title, author, year, genre) => {
+function bookRegister(title, author, year, genre){
   try {
     const newBook = new book({
       title,
@@ -8,7 +8,7 @@ const bookRegister = async (title, author, year, genre) => {
       year,
       genre,
     });
-    return await newBook.save();
+    return newBook.save();
   } catch (error) {
     console.error("Error registering book:", error);
     throw error;
