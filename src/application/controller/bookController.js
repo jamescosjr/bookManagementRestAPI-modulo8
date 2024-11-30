@@ -1,4 +1,4 @@
-const { registerBook, getAllBooksService, updateBookService, deleteBookService } = require("../../domain/services/bookService.js");
+const { registerBook, getAllBooksService, updateBookService, deleteBookService, getBookByTitleService, getBookByAuthorService, getBookByYearService, getBookByGenreService } = require("../../domain/services/bookService.js");
 const validateBookData = require("../../domain/utils/validations.js");
 
 async function bookRegister(req, res) {
@@ -63,4 +63,60 @@ async function deleteBook(req, res) {
   }
 }
 
-module.exports = { bookRegister, listAllBooks, updateBook, deleteBook };
+async function getBookByTitle(req, res) {
+  try {
+    const { title } = req.params; 
+    const result = await getBookByTitleService(title);
+    if (!result || result.length === 0) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Error in getBookByTitle:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+async function getBookByAuthor(req, res) {
+  try {
+    const { author } = req.params; 
+    const result = await getBookByAuthorService(author);
+    if (!result || result.length === 0) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Error in getBookByAuthor:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+async function getBookByYear(req, res) {
+  try {
+    const { year } = req.params; 
+    const result = await getBookByYearService(year);
+    if (!result || result.length === 0) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Error in getBookByYear:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+async function getBookByGenre(req, res) {
+  try {
+    const { genre } = req.params; 
+    const result = await getBookByGenreService(genre);
+    if (!result || result.length === 0) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Error in getBookByGenre:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+module.exports = { bookRegister, listAllBooks, updateBook, deleteBook, getBookByTitle, getBookByAuthor, getBookByYear, getBookByGenre };
