@@ -1,4 +1,4 @@
-const bookRegister = require("../../infrastructure/repositories/bookRepository.write");
+const { bookRegister, updateBook, deleteBook } = require("../../infrastructure/repositories/bookRepository.write");
 const getAllBooks = require("../../infrastructure/repositories/bookRepository.read");
 
  function registerBook(title, author, year, genre) {
@@ -19,7 +19,27 @@ function getAllBooksService(){
   }
 }
 
+function updateBookService(id, title, author, year, genre) {
+  try {
+    return updateBook(id, title, author, year, genre);
+  } catch (error) {
+    console.error("Error in updateBookService:", error);
+    throw error;
+  }
+}
+
+function deleteBookService(id) {
+  try {
+    return deleteBook(id);
+  } catch (error) {
+    console.error("Error in deleteBookService:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   registerBook,
-  getAllBooksService
+  getAllBooksService,
+  updateBookService,
+  deleteBookService
 };
