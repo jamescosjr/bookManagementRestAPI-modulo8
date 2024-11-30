@@ -1,5 +1,5 @@
 const { bookRegister, updateBook, deleteBook } = require("../../infrastructure/repositories/bookRepository.write");
-const getAllBooks = require("../../infrastructure/repositories/bookRepository.read");
+const {getAllBooks, getBookByTitle, getByAuthor, getByYear, getByGenre} = require("../../infrastructure/repositories/bookRepository.read");
 
  function registerBook(title, author, year, genre) {
   try {
@@ -37,9 +37,49 @@ function deleteBookService(id) {
   }
 }
 
+function getBookByTitleService(title){
+  try {
+    return getBookByTitle(title);
+  } catch (error) {
+    console.error("Error getting books:", error);
+    throw error;
+  }
+}
+
+function getBookByAuthorService(author){
+  try {
+    return getByAuthor(author);
+  } catch (error) {
+    console.error("Error getting books:", error);
+    throw error;
+  }
+}
+
+function getBookByYearService(year){
+  try {
+    return getByYear(year);
+  } catch (error) {
+    console.error("Error getting books:", error);
+    throw error;
+  }
+}
+
+function getBookByGenreService(genre){
+  try {
+    return getByGenre(genre);
+  } catch (error) {
+    console.error("Error getting books:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   registerBook,
   getAllBooksService,
   updateBookService,
-  deleteBookService
+  deleteBookService,
+  getBookByTitleService,
+  getBookByAuthorService,
+  getBookByYearService,
+  getBookByGenreService,
 };
