@@ -4,8 +4,7 @@ function getAllBooks() {
     try {
         return Book.find();
     } catch (error) {
-        console.error("Error getting books:", error);
-        throw error;
+        next(error);
     }
 }
 
@@ -15,8 +14,7 @@ async function getBookByTitle(title) {
             .find({ title });
     }
     catch (error) {
-        console.error("Error getting books:", error);
-        throw error;
+        next(error);
     }
 }
 
@@ -26,8 +24,7 @@ async function getByAuthor(author) {
             .find({ author });
     }
     catch (error) {
-        console.error("Error getting books:", error);
-        throw error;
+        next(error);
     }
 }
 
@@ -37,8 +34,7 @@ async function getByYear(year) {
             .find({ year });
     }
     catch (error) {
-        console.error("Error getting books:", error);
-        throw error;
+        next(error);
     }
 }
 
@@ -48,8 +44,7 @@ async function getByGenre(genre) {
             .find({ genre });
     }
     catch (error) {
-        console.error("Error getting books:", error);
-        throw error;
+        next(error);
     }
 }
 

@@ -1,75 +1,99 @@
 const { bookRegister, updateBook, deleteBook } = require("../../infrastructure/repositories/bookRepository.write");
 const {getAllBooks, getBookByTitle, getByAuthor, getByYear, getByGenre} = require("../../infrastructure/repositories/bookRepository.read");
 
- function registerBook(title, author, year, genre) {
+const { AppError, NotFoundError } = require("../utils/error/customErros");
+
+async function registerBook(title, author, year, genre) {
   try {
-    return bookRegister(title, author, year, genre);
+    return await bookRegister(title, author, year, genre);
   } catch (error) {
-    console.error("Error registering book:", error);
-    throw error;
+    throw new AppError("Failed to register book", 500);
   }
 }
 
-function getAllBooksService(){
+async function getAllBooksService() {
   try {
-    return getAllBooks();
+    return await getAllBooks();
   } catch (error) {
-    console.error("Error getting books:", error);
-    throw error;
+    throw new AppError("Failed to retrieve books", 500);
   }
 }
 
-function updateBookService(id, title, author, year, genre) {
+async function updateBookService(id, title, author, year, genre) {
   try {
-    return updateBook(id, title, author, year, genre);
+    const result = await updateBook(id, title, author, year, genre);
+    if (!result) {
+      throw new NotFoundError();
+    }
+    return result;
   } catch (error) {
-    console.error("Error in updateBookService:", error);
-    throw error;
+    if (error instanceof NotFoundError) throw error;
+    throw new AppError("Failed to update book", 500);
   }
 }
 
-function deleteBookService(id) {
+async function deleteBookService(id) {
   try {
-    return deleteBook(id);
+    const result = await deleteBook(id);
+    if (!result) {
+      throw new NotFoundError();
+    }
+    return result;
   } catch (error) {
-    console.error("Error in deleteBookService:", error);
-    throw error;
+    if (error instanceof NotFoundError) throw error;
+    throw new AppError("Failed to delete book", 500);
   }
 }
 
-function getBookByTitleService(title){
+async function getBookByTitleService(title) {
   try {
-    return getBookByTitle(title);
+    const result = await getBookByTitle(title);
+    if (!result || result.length === 0) {
+      throw new NotFoundError();
+    }
+    return result;
   } catch (error) {
-    console.error("Error getting books:", error);
-    throw error;
+    if (error instanceof NotFoundError) throw error;
+    throw new AppError("Failed to retrieve book by title", 500);
   }
 }
 
-function getBookByAuthorService(author){
+async function getBookByAuthorService(author) {
   try {
-    return getByAuthor(author);
+    const result = await getByAuthor(author);
+    if (!result || result.length === 0) {
+      throw new NotFoundError();
+    }
+    return result;
   } catch (error) {
-    console.error("Error getting books:", error);
-    throw error;
+    if (error instanceof NotFoundError) throw error;
+    throw new AppError("Failed to retrieve book by author", 500);
   }
 }
 
-function getBookByYearService(year){
+async function getBookByYearService(year) {
   try {
-    return getByYear(year);
+    const result = await getByYear(year);
+    if (!result || result.length === 0) {
+      throw new NotFoundError();
+    }
+    return result;
   } catch (error) {
-    console.error("Error getting books:", error);
-    throw error;
+    if (error instanceof NotFoundError) throw error;
+    throw new AppError("Failed to retrieve book by year", 500);
   }
 }
 
-function getBookByGenreService(genre){
+async function getBookByGenreService(genre) {
   try {
-    return getByGenre(genre);
+    const result = await getByGenre(genre);
+    if (!result || result.length === 0) {
+      throw new NotFoundError();
+    }
+    return result;
   } catch (error) {
-    console.error("Error getting books:", error);
-    throw error;
+    if (error instanceof NotFoundError) throw error;
+    throw new AppError("Failed to retrieve book by genre", 500);
   }
 }
 

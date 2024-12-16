@@ -10,8 +10,7 @@ function bookRegister(title, author, year, genre) {
     });
     return newBook.save();
   } catch (error) {
-    console.error("Error registering book:", error);
-    throw error;
+    next(error);
   }
 }
 
@@ -23,8 +22,7 @@ async function updateBook(id, title, author, year, genre) {
       { new: true, lean: true }
     );
   } catch (error) {
-    console.error("Error updating book in repository:", error);
-    throw error;
+    next(error);
   }
 }
 
@@ -32,8 +30,7 @@ async function deleteBook(id) {
   try {
     return await book.findByIdAndDelete(id);
   } catch (error) {
-    console.error("Error deleting book in repository:", error);
-    throw error;
+    next(error);
   }
 }
 
