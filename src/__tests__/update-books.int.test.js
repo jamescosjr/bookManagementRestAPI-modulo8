@@ -58,7 +58,7 @@ describe('Update Book', () => {
             .send(updatedBook);
 
         expect(response.statusCode).toBe(404);
-        expect(response.body.message).toBe('Book not found');
+        expect(response.body.message).toBe('Resource not found');
     });
     
     it('should return 400 if book data is invalid', async () => {
