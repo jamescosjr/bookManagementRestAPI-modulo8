@@ -1,3 +1,4 @@
+const book = require('../infrastructure/schema/bookSchema.js');
 const request = require('supertest');
 const app = require('../../server');
 const dbHandler = require('../../jest/jest.setup');
@@ -68,18 +69,22 @@ describe('Book registration', () => {
             expect(response.body).toEqual({ message: "The genre should be a valid string" });
         });
 
-        it("return an error message for empty book data", async () => {
-            const book = {
-                title: "",
-                author: "",
+        it("simulate a repository error", async () => {
+            jest.spyOn(book.prototype, 'save').mockImplementationOnce(() => {
+                throw new Error("Database error");
+            });
+
+            const newBook = {
+                title: "The Hobbit",
+                author: "J.R.R. Tolkien",
                 year: 1937,
                 genre: "Fantasy",
             };
 
-            const response = await request(app).post("/books").send(book);
+            const response = await request(app).post("/books").send(newBook);
 
-            expect(response.statusCode).toBe(400);
-            expect(response.body).toEqual({ message: "The title should be a valid string" });
+            expect(response.statusCode).toBe(500);
+            expect(response.body).toEqual({ message: "Failed to register book" });
         });
     });
 });
