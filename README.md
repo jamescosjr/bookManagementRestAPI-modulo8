@@ -32,11 +32,14 @@
 
 ## API Endpoints
 
-- `GET /books` - Retrieve a list of books
 - `POST /books` - Add a new book
-- `GET /books/:id` - Retrieve a book by ID
+- `GET /books` - Retrieve a list of books
 - `PUT /books/:id` - Update a book by ID
 - `DELETE /books/:id` - Delete a book by ID
+- `GET /books/title/:title` - Retrieve books by title
+- `GET /books/author/:author` - Retrieve books by author
+- `GET /books/year/:year` - Retrieve books by year
+- `GET /books/genre/:genre` - Retrieve books by genre
 
 ## Contributing
 
