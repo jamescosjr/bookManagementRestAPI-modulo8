@@ -14,4 +14,4 @@ function validateBookData(book) {
   return { valid: true };
 }
 
-module.exports = validateBookData;
+export default validateBookData;

@@ -1,9 +1,9 @@
-const { bookRegister, updateBook, deleteBook } = require("../../infrastructure/repositories/bookRepository.write");
-const {getAllBooks, getBookByTitle, getByAuthor, getByYear, getByGenre} = require("../../infrastructure/repositories/bookRepository.read");
+import { bookRegister, updateBook, deleteBook } from "../../infrastructure/repositories/bookRepository.write.js";
+import { getAllBooks, getBookByTitle, getByAuthor, getByYear, getByGenre } from "../../infrastructure/repositories/bookRepository.read.js";
 
-const { AppError, NotFoundError } = require("../utils/error/customErros");
+import { AppError, NotFoundError } from "../utils/error/customErros.js";
 
-async function registerBook(title, author, year, genre) {
+export async function registerBook(title, author, year, genre) {
   try {
     return await bookRegister(title, author, year, genre);
   } catch (error) {
@@ -11,7 +11,7 @@ async function registerBook(title, author, year, genre) {
   }
 }
 
-async function getAllBooksService() {
+export async function getAllBooksService() {
   try {
     return await getAllBooks();
   } catch (error) {
@@ -19,7 +19,7 @@ async function getAllBooksService() {
   }
 }
 
-async function updateBookService(id, title, author, year, genre) {
+export async function updateBookService(id, title, author, year, genre) {
   try {
     const result = await updateBook(id, title, author, year, genre);
     if (!result) {
@@ -32,7 +32,7 @@ async function updateBookService(id, title, author, year, genre) {
   }
 }
 
-async function deleteBookService(id) {
+export async function deleteBookService(id) {
   try {
     const result = await deleteBook(id);
     if (!result) {
@@ -45,7 +45,7 @@ async function deleteBookService(id) {
   }
 }
 
-async function getBookByTitleService(title) {
+export async function getBookByTitleService(title) {
   try {
     const result = await getBookByTitle(title);
     if (!result || result.length === 0) {
@@ -58,7 +58,7 @@ async function getBookByTitleService(title) {
   }
 }
 
-async function getBookByAuthorService(author) {
+export async function getBookByAuthorService(author) {
   try {
     const result = await getByAuthor(author);
     if (!result || result.length === 0) {
@@ -71,7 +71,7 @@ async function getBookByAuthorService(author) {
   }
 }
 
-async function getBookByYearService(year) {
+export async function getBookByYearService(year) {
   try {
     const result = await getByYear(year);
     if (!result || result.length === 0) {
@@ -84,7 +84,7 @@ async function getBookByYearService(year) {
   }
 }
 
-async function getBookByGenreService(genre) {
+export async function getBookByGenreService(genre) {
   try {
     const result = await getByGenre(genre);
     if (!result || result.length === 0) {
@@ -96,14 +96,3 @@ async function getBookByGenreService(genre) {
     throw new AppError("Failed to retrieve book by genre", 500);
   }
 }
-
-module.exports = {
-  registerBook,
-  getAllBooksService,
-  updateBookService,
-  deleteBookService,
-  getBookByTitleService,
-  getBookByAuthorService,
-  getBookByYearService,
-  getBookByGenreService,
-};

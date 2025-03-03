@@ -1,8 +1,16 @@
-require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
-const routes = require("./src/application/controller/routes.js");
-const errorHandler = require("./src/application/middleware/errorHandler.js");
+import dotenv from "dotenv";
+import express from "express";
+import mongoose from "mongoose";
+import routes from "./src/application/controller/routes.js";
+import errorHandler from "./src/application/middleware/errorHandler.js";
+import { validate } from 'express-jsonschema';
+import yaml from 'js-yaml';
+import fs from 'fs';
+
+const schema = yaml.load(fs.readFileSync('./src/contracts/contract.yaml', 'utf8'));
+
+dotenv.config();
+
 
 const app = express();
 const PORT = process.env.PORT;
@@ -21,6 +29,10 @@ if (process.env.NODE_ENV !== 'test') {
   });
 }
 
+const validateSchema = validate({ body: schema });
+
+app.use(validateSchema);
+
 app.use(routes);
 app.use(errorHandler);
 
@@ -30,4 +42,4 @@ if (process.env.NODE_ENV !== 'test') {
   });
 }
 
-module.exports = app;
+export default app;

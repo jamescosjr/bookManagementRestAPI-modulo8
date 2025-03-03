@@ -1,6 +1,6 @@
-const book = require('../schema/bookSchema.js');
+import book from '../schema/bookSchema.js';
 
-function bookRegister(title, author, year, genre) {
+export async function bookRegister(title, author, year, genre) {
   try {
     const newBook = new book({
       title,
@@ -14,7 +14,7 @@ function bookRegister(title, author, year, genre) {
   }
 }
 
-async function updateBook(id, title, author, year, genre) {
+export async function updateBook(id, title, author, year, genre) {
   try {
     return await book.findByIdAndUpdate(
       id,
@@ -26,12 +26,10 @@ async function updateBook(id, title, author, year, genre) {
   }
 }
 
-async function deleteBook(id) {
+export async function deleteBook(id) {
   try {
     return await book.findByIdAndDelete(id);
   } catch (error) {
     next(error);
   }
 }
-
-module.exports = { bookRegister, updateBook, deleteBook };

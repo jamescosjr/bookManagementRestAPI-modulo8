@@ -1,6 +1,6 @@
-const Book = require("../schema/bookSchema");
+import Book from "../schema/bookSchema.js";
 
-function getAllBooks() {
+export async function getAllBooks() {
     try {
         return Book.find();
     } catch (error) {
@@ -8,7 +8,7 @@ function getAllBooks() {
     }
 }
 
-async function getBookByTitle(title) {
+export async function getBookByTitle(title) {
     try {
         return Book
             .find({ title });
@@ -18,7 +18,7 @@ async function getBookByTitle(title) {
     }
 }
 
-async function getByAuthor(author) {
+export async function getByAuthor(author) {
     try {
         return Book
             .find({ author });
@@ -28,7 +28,7 @@ async function getByAuthor(author) {
     }
 }
 
-async function getByYear(year) {
+export async function getByYear(year) {
     try {
         return Book
             .find({ year });
@@ -38,7 +38,7 @@ async function getByYear(year) {
     }
 }
 
-async function getByGenre(genre) {
+export async function getByGenre(genre) {
     try {
         return Book
             .find({ genre });
@@ -47,5 +47,3 @@ async function getByGenre(genre) {
         next(error);
     }
 }
-
-module.exports = {getAllBooks, getBookByTitle, getByAuthor, getByYear, getByGenre};

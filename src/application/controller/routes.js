@@ -1,8 +1,7 @@
-const express = require("express");
-const { bookRegister, listAllBooks, updateBook, deleteBook, getBookByTitle, getBookByAuthor, getBookByYear, getBookByGenre } = require("./bookController");
+import express from "express";
+import { bookRegister, listAllBooks, updateBook, deleteBook, getBookByTitle, getBookByAuthor, getBookByYear, getBookByGenre } from "./bookController.js";
 
 const router = express.Router();
-
 router.post("/books", bookRegister);
 router.get("/books", listAllBooks);
 router.put("/books/:id", updateBook);
@@ -12,4 +11,4 @@ router.get("/books/author/:author", getBookByAuthor);
 router.get("/books/year/:year", getBookByYear);
 router.get("/books/genre/:genre", getBookByGenre);
 
-module.exports = router;
+export default router;

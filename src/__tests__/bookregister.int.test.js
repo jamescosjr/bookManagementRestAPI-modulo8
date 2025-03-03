@@ -1,7 +1,7 @@
-const book = require('../infrastructure/schema/bookSchema.js');
-const request = require('supertest');
-const app = require('../../server');
-const dbHandler = require('../../jest/jest.setup');
+import book from '../infrastructure/schema/bookSchema.js';
+import request from 'supertest';
+import app from '../../server.js';
+const  dbHandler = require('../../jest/jest.setup');
 
 beforeAll(async () => {
     await dbHandler.connect();

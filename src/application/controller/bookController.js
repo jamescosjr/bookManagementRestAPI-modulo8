@@ -1,7 +1,7 @@
-const { registerBook, getAllBooksService, updateBookService, deleteBookService, getBookByTitleService, getBookByAuthorService, getBookByYearService, getBookByGenreService } = require("../../domain/services/bookService.js");
-const validateBookData = require("../../domain/utils/validations.js");
+import { registerBook, getAllBooksService, updateBookService, deleteBookService, getBookByTitleService, getBookByAuthorService, getBookByYearService, getBookByGenreService } from "../../domain/services/bookService.js";
+import validateBookData from "../../domain/utils/validations.js";
 
-const { NotFoundError, ValidationError } = require("../../domain/utils/error/customErros.js");
+import { NotFoundError, ValidationError } from "../../domain/utils/error/customErros.js";
 
 async function bookRegister(req, res, next) {
   try {
@@ -114,4 +114,4 @@ async function getBookByGenre(req, res, next) {
   }
 }
 
-module.exports = { bookRegister, listAllBooks, updateBook, deleteBook, getBookByTitle, getBookByAuthor, getBookByYear, getBookByGenre };
+export { bookRegister, listAllBooks, updateBook, deleteBook, getBookByTitle, getBookByAuthor, getBookByYear, getBookByGenre };

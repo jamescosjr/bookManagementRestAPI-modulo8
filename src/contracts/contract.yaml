@@ -1,0 +1,213 @@
+openapi: 3.0.0
+info:
+  title: Book Management API
+  version: 1.0.0
+  description: API for managing books in a library
+paths:
+  /books:
+    post:
+      summary: Register a new book
+      operationId: bookRegister
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                author:
+                  type: string
+                year:
+                  type: integer
+                genre:
+                  type: string
+              required:
+                - title
+                - author
+                - year
+                - genre
+      responses:
+        '201':
+          description: Book registered successfully
+    get:
+      summary: List all books
+      operationId: listAllBooks
+      responses:
+        '200':
+          description: A list of books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    title:
+                      type: string
+                    author:
+                      type: string
+                    year:
+                      type: integer
+                    genre:
+                      type: string
+  /books/{id}:
+    put:
+      summary: Update a book
+      operationId: updateBook
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                author:
+                  type: string
+                year:
+                  type: integer
+                genre:
+                  type: string
+              required:
+                - title
+                - author
+                - year
+                - genre
+      responses:
+        '200':
+          description: Book updated successfully
+    delete:
+      summary: Delete a book
+      operationId: deleteBook
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Book deleted successfully
+  /books/title/{title}:
+    get:
+      summary: Get book by title
+      operationId: getBookByTitle
+      parameters:
+        - name: title
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Book found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  title:
+                    type: string
+                  author:
+                    type: string
+                  year:
+                    type: integer
+                  genre:
+                    type: string
+  /books/author/{author}:
+    get:
+      summary: Get book by author
+      operationId: getBookByAuthor
+      parameters:
+        - name: author
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Book found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  title:
+                    type: string
+                  author:
+                    type: string
+                  year:
+                    type: integer
+                  genre:
+                    type: string
+  /books/year/{year}:
+    get:
+      summary: Get book by year
+      operationId: getBookByYear
+      parameters:
+        - name: year
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Book found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  title:
+                    type: string
+                  author:
+                    type: string
+                  year:
+                    type: integer
+                  genre:
+                    type: string
+  /books/genre/{genre}:
+    get:
+      summary: Get book by genre
+      operationId: getBookByGenre
+      parameters:
+        - name: genre
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Book found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  title:
+                    type: string
+                  author:
+                    type: string
+                  year:
+                    type: integer
+                  genre:
+                    type: string

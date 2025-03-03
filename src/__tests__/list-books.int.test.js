@@ -1,7 +1,6 @@
-const request = require('supertest');
-const app = require('../../server');
-const dbHandler = require('../../jest/jest.setup');
-const mongoose = require('mongoose');
+import request from 'supertest';
+import app from '../../server';
+const  dbHandler = require('../../jest/jest.setup');
 
 beforeAll(async () => {
     await dbHandler.connect();

@@ -9,4 +9,4 @@ function errorHandler(err, req, res, next) {
     next(err);
   }
   
-  module.exports = errorHandler;
+  export default errorHandler;
